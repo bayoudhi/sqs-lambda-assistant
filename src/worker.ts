@@ -1,6 +1,6 @@
-import { IntegrationOptions } from './integration';
-import { LambdaOptions } from './lambda';
-import { SQSOptions } from './sqs';
+import { IntegrationOptions } from "./integration";
+import { LambdaOptions } from "./lambda";
+import { SQSOptions } from "./sqs";
 
 interface IWorker {
   id: string;
