@@ -1,12 +1,10 @@
 import { Lambda as CFLambda } from 'cloudform-types';
 
-export type LambdaOptions = Pick<
-Omit<CFLambda.Function, 'Properties'> & {
+export type LambdaOptions = Omit<Partial<CFLambda.Function>, 'Properties'> & {
+  Properties: Partial<CFLambda.Function['Properties']>;
+} & {
   id: string;
-  Properties: Omit<CFLambda.Function['Properties'], 'Code' | 'Role'>;
-},
-'id' | 'Properties'
->;
+};
 
 export default class Lambda {
   id: string;
