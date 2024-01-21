@@ -1,4 +1,4 @@
-import Worker from "../src/worker";
+import { Worker } from "../src/worker";
 
 it("should instantiate a worker correctly", () => {
   const worker = new Worker({

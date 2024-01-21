@@ -7,7 +7,7 @@ export type WorkerOptions = {
   sqs: SQS;
 };
 
-export default class Worker {
+export class Worker {
   readonly id: string;
   readonly lambda: Lambda;
   readonly integration: Integration;
