@@ -1312,6 +1312,11 @@ cliui@^8.0.1:
     strip-ansi "^6.0.1"
     wrap-ansi "^7.0.0"
 
+cloudform-types@^7.5.0:
+  version "7.5.0"
+  resolved "https://registry.yarnpkg.com/cloudform-types/-/cloudform-types-7.5.0.tgz#ebc01702795251dd4ddf9d18801964954a8f8657"
+  integrity sha512-VoHcgsYl6n+a2hWAMpXe24boaQGkfUOKTHvhKMOK821RcleH1yHylQO9oK27CerP0hYDzHvvAFIXQY4AjgesQw==
+
 co@^4.6.0:
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/co/-/co-4.6.0.tgz#6ea6bdf3d853ae54ccb8e47bfa0bf3f9031fb184"
