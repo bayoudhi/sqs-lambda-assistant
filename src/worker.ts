@@ -1,25 +1,27 @@
-import { Lambda, SQS } from 'cloudform-types';
+import { IntegrationOptions } from "./integration";
+import { LambdaOptions } from "./lambda";
+import { SQSOptions } from "./sqs";
 
 interface IWorker {
   id: string;
-  lambda: Lambda.Function;
-  integration: Lambda.EventSourceMapping;
-  sqs: SQS.Queue;
+  lambda: LambdaOptions;
+  integration: IntegrationOptions;
+  sqs: SQSOptions;
   analyze: () => string[];
 }
 
-type WorkerOptions = {
+export type WorkerOptions = {
   id: string;
-  lambda: Lambda.Function;
-  integration: Lambda.EventSourceMapping;
-  sqs: SQS.Queue;
+  lambda: LambdaOptions;
+  integration: IntegrationOptions;
+  sqs: SQSOptions;
 };
 
 export default class Worker implements IWorker {
   id: string;
-  lambda: Lambda.Function;
-  integration: Lambda.EventSourceMapping;
-  sqs: SQS.Queue;
+  lambda: LambdaOptions;
+  integration: IntegrationOptions;
+  sqs: SQSOptions;
 
   constructor(options: WorkerOptions) {
     this.id = options.id;
@@ -29,6 +31,10 @@ export default class Worker implements IWorker {
   }
 
   analyze() {
+    console.log(this.id)
+    console.log(this.lambda)
+    console.log(this.integration)
+    console.log(this.sqs)
     return [];
   }
 }
