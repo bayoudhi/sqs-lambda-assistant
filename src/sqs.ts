@@ -1,10 +1,10 @@
-import { SQS as CFSQS } from "cloudform-types";
+import { SQS as CFSQS } from 'cloudform-types';
 
-export type SQSOptions = Pick<CFSQS.Queue, "Properties"> & { id: string };
+export type SQSOptions = Pick<CFSQS.Queue, 'Properties'> & { id: string };
 
 export default class SQS {
   id: string;
-  Properties: SQSOptions["Properties"];
+  Properties: SQSOptions['Properties'];
 
   constructor(options: SQSOptions) {
     this.id = options.id;

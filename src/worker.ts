@@ -1,6 +1,6 @@
-import { IntegrationOptions } from "./integration";
-import { LambdaOptions } from "./lambda";
-import { SQSOptions } from "./sqs";
+import { IntegrationOptions } from './integration';
+import { LambdaOptions } from './lambda';
+import { SQSOptions } from './sqs';
 
 interface IWorker {
   id: string;
@@ -31,10 +31,10 @@ export default class Worker implements IWorker {
   }
 
   analyze() {
-    console.log(this.id)
-    console.log(this.lambda)
-    console.log(this.integration)
-    console.log(this.sqs)
+    console.log(this.id);
+    console.log(this.lambda);
+    console.log(this.integration);
+    console.log(this.sqs);
     return [];
   }
 }
