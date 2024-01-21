@@ -1,6 +1,4 @@
-import Integration from "./integration";
-import Lambda from "./lambda";
-import SQS from "./sqs";
+import { Integration, Lambda, SQS } from "./types";
 import Worker from "./worker";
 
 export class Hello {
@@ -9,22 +7,25 @@ export class Hello {
   }
 }
 
-const lambda = new Lambda({
+const lambda: Lambda = {
   id: "lambda",
   Properties: {
     ReservedConcurrentExecutions: 3,
   },
-});
-const sqs = new SQS({
+};
+
+const sqs: SQS = {
   id: "sqs",
   Properties: {},
-});
-const integration = new Integration({
+};
+
+const integration: Integration = {
   id: "integration",
   Properties: {
     BatchSize: 12,
   },
-});
+};
+
 const w = new Worker({
   id: "worker",
   integration,

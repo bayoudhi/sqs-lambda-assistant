@@ -1,27 +1,17 @@
-import { IntegrationOptions } from "./integration";
-import { LambdaOptions } from "./lambda";
-import { SQSOptions } from "./sqs";
-
-interface IWorker {
-  id: string;
-  lambda: LambdaOptions;
-  integration: IntegrationOptions;
-  sqs: SQSOptions;
-  analyze: () => string[];
-}
+import { Integration, Lambda, SQS } from "./types";
 
 export type WorkerOptions = {
   id: string;
-  lambda: LambdaOptions;
-  integration: IntegrationOptions;
-  sqs: SQSOptions;
+  lambda: Lambda;
+  integration: Integration;
+  sqs: SQS;
 };
 
-export default class Worker implements IWorker {
-  id: string;
-  lambda: LambdaOptions;
-  integration: IntegrationOptions;
-  sqs: SQSOptions;
+export default class Worker {
+  readonly id: string;
+  readonly lambda: Lambda;
+  readonly integration: Integration;
+  readonly sqs: SQS;
 
   constructor(options: WorkerOptions) {
     this.id = options.id;
