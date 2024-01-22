@@ -8,7 +8,7 @@ export class VisibilityTimeoutAdvisor implements Advisor {
     const timeout = Number(worker.lambda.Properties.Timeout);
     if (visibilityTimeout < timeout * 6) {
       suggestions.push(
-        "visibilityTimeout must be greater than lambda.visibilityTimeout * 6",
+        "SQS VisibilityTimeout must be greater than Lambda Timeout * 6",
       );
     }
     return suggestions;
