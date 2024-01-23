@@ -1,0 +1,114 @@
+
+############### - 7 - ################
+
+ --- SQSs of 7 --- 
+[
+  {
+    "LogicalId": "jobsDlqD18CF374",
+    "Properties": {
+      "MessageRetentionPeriod": 1209600,
+      "QueueName": "aws-node-sqs-worker-project-dev-jobs-dlq"
+    }
+  },
+  {
+    "LogicalId": "jobsQueueCEDBAE3E",
+    "Properties": {
+      "DelaySeconds": 60,
+      "QueueName": "aws-node-sqs-worker-project-dev-jobs",
+      "RedrivePolicy": {
+        "deadLetterTargetArn": {
+          "Fn::GetAtt": [
+            "jobsDlqD18CF374",
+            "Arn"
+          ]
+        },
+        "maxReceiveCount": 3
+      },
+      "VisibilityTimeout": 69
+    }
+  }
+]
+ --- Lambdas of 7  --- 
+[
+  {
+    "LogicalId": "ProducerLambdaFunction",
+    "Properties": {
+      "Code": {
+        "S3Bucket": {
+          "Ref": "ServerlessDeploymentBucket"
+        },
+        "S3Key": "serverless/aws-node-sqs-worker-project/dev/1705833879496-2024-01-21T10:44:39.496Z/aws-node-sqs-worker-project.zip"
+      },
+      "Handler": "index.producer",
+      "Runtime": "nodejs18.x",
+      "FunctionName": "aws-node-sqs-worker-project-dev-producer",
+      "MemorySize": 1024,
+      "Timeout": 6,
+      "Environment": {
+        "Variables": {
+          "QUEUE_URL": {
+            "Ref": "jobsQueueCEDBAE3E"
+          }
+        }
+      },
+      "Role": {
+        "Fn::GetAtt": [
+          "IamRoleLambdaExecution",
+          "Arn"
+        ]
+      }
+    }
+  },
+  {
+    "LogicalId": "JobsWorkerLambdaFunction",
+    "Properties": {
+      "Code": {
+        "S3Bucket": {
+          "Ref": "ServerlessDeploymentBucket"
+        },
+        "S3Key": "serverless/aws-node-sqs-worker-project/dev/1705833879496-2024-01-21T10:44:39.496Z/aws-node-sqs-worker-project.zip"
+      },
+      "Handler": "index.consumer",
+      "Runtime": "nodejs18.x",
+      "FunctionName": "aws-node-sqs-worker-project-dev-jobsWorker",
+      "MemorySize": 1024,
+      "Timeout": 6,
+      "Role": {
+        "Fn::GetAtt": [
+          "IamRoleLambdaExecution",
+          "Arn"
+        ]
+      },
+      "ReservedConcurrentExecutions": 200
+    }
+  }
+]
+ --- EventSourceMappings of 7  --- 
+[
+  {
+    "LogicalId": "JobsWorkerEventSourceMappingSQSJobsQueueCEDBAE3E",
+    "Properties": {
+      "BatchSize": 5,
+      "MaximumBatchingWindowInSeconds": 33,
+      "EventSourceArn": {
+        "Fn::GetAtt": [
+          "jobsQueueCEDBAE3E",
+          "Arn"
+        ]
+      },
+      "FunctionName": {
+        "Fn::GetAtt": [
+          "JobsWorkerLambdaFunction",
+          "Arn"
+        ]
+      },
+      "Enabled": true,
+      "FunctionResponseTypes": [
+        "ReportBatchItemFailures"
+      ],
+      "ScalingConfig": {
+        "MaximumConcurrency": 1000
+      }
+    }
+  }
+]

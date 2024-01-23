@@ -1,0 +1,68 @@
+{
+  "Resources": {
+    "SQSQueue1": {
+      "Type": "AWS::SQS::Queue"
+    },
+    "SQSQueue2": {
+      "Type": "AWS::SQS::Queue"
+    },
+    "LambdaFunction1": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Handler": "index.handler",
+        "Role": "arn:aws:iam::123456789012:role/lambda-role",
+        "FunctionName": "LambdaFunction1",
+        "Runtime": "nodejs14.x",
+        "Code": {
+          "S3Bucket": "lambda-code-bucket",
+          "S3Key": "lambda-code1.zip"
+        },
+        "Environment": {
+          "Variables": {
+            "QUEUE_URL": { "Ref": "SQSQueue1" }
+          }
+        }
+      }
+    },
+    "LambdaFunction2": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Handler": "index.handler",
+        "Role": "arn:aws:iam::123456789012:role/lambda-role",
+        "FunctionName": "LambdaFunction2",
+        "Runtime": "nodejs14.x",
+        "Code": {
+          "S3Bucket": "lambda-code-bucket",
+          "S3Key": "lambda-code2.zip"
+        },
+        "Environment": {
+          "Variables": {
+            "QUEUE_URL": { "Ref": "SQSQueue2" }
+          }
+        }
+      }
+    },
+    "SNSTopic1": {
+      "Type": "AWS::SNS::Topic"
+    },
+    "SNSTopic2": {
+      "Type": "AWS::SNS::Topic"
+    },
+    "LambdaSubscription1": {
+      "Type": "AWS::SNS::Subscription",
+      "Properties": {
+        "Protocol": "lambda",
+        "TopicArn": { "Ref": "SNSTopic1" },
+        "Endpoint": { "Fn::GetAtt": ["LambdaFunction1", "Arn"] }
+      }
+    },
+    "LambdaSubscription2": {
+      "Type": "AWS::SNS::Subscription",
+      "Properties": {
+        "Protocol": "lambda",
+        "TopicArn": { "Ref": "SNSTopic2" },
+        "Endpoint": { "Fn::GetAtt": ["LambdaFunction2", "Arn"] }
+      }
+    }
+  }
+}
