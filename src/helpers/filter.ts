@@ -12,7 +12,7 @@ export const filter = (template: Template) => {
     template,
     "AWS::Lambda::EventSourceMapping",
   ) as Partial<Lambda.EventSourceMapping>[];
-  const options: Record<
+  const filtered: Record<
     string,
     | Partial<SQS.Queue>
     | Partial<Lambda.Function>
@@ -38,15 +38,15 @@ export const filter = (template: Template) => {
           const sqs = queues.find(({ LogicalId }) => LogicalId === logicalId);
           const lambda = functions.find(
             ({ LogicalId }) =>
-              LogicalId === integration.Properties.FunctionName.Ref ||
-              LogicalId === integration.Properties.FunctionName["Fn::GetAtt"][0],
+              LogicalId === integration.Properties.FunctionName?.Ref ||
+              LogicalId === integration.Properties.FunctionName?.["Fn::GetAtt"]?.[0],
           );
           if (sqs && lambda) {
-            options.push({ integration, lambda, sqs });
+            filtered.push({ integration, lambda, sqs });
           }
         }
       }
     });
   }
-  return options;
+  return filtered;
 };
