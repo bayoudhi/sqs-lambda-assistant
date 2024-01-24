@@ -39,7 +39,8 @@ export const filter = (template: Template) => {
           const lambda = functions.find(
             ({ LogicalId }) =>
               LogicalId === integration.Properties.FunctionName?.Ref ||
-              LogicalId === integration.Properties.FunctionName?.["Fn::GetAtt"]?.[0],
+              LogicalId ===
+                integration.Properties.FunctionName?.["Fn::GetAtt"]?.[0],
           );
           if (sqs && lambda) {
             filtered.push({ integration, lambda, sqs });

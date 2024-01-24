@@ -666,80 +666,80 @@ describe(`when template contains only an the required resources`, () => {
           });
         });
         describe("when two mappings are pointing to the same Lambda Function", () => {
-            const template = {
-              Resources: {
-                my_queue_1: {
-                  Type: "AWS::SQS::Queue",
-                },
-                my_function_1: {
-                  Type: "AWS::Lambda::Function",
-                },
-                my_mapping_1: {
-                  Type: "AWS::Lambda::EventSourceMapping",
-                  Properties: {
-                    EventSourceArn: { Ref: "my_queue_1" },
-                    FunctionName: { Ref: "my_function_1" },
-                    foo: "bar",
-                    baz: {
-                      kaz: 123,
-                    },
-                  },
-                },
-                my_queue_2: {
-                  Type: "AWS::SQS::Queue",
-                },
-                my_function_2: {
-                  Type: "AWS::Lambda::Function",
-                },
-                my_mapping_2: {
-                  Type: "AWS::Lambda::EventSourceMapping",
-                  Properties: {
-                    EventSourceArn: { Ref: "my_queue_2" },
-                    FunctionName: { Ref: "my_function_1" },
-                    foo: "bar",
-                    baz: {
-                      kaz: 123,
-                    },
+          const template = {
+            Resources: {
+              my_queue_1: {
+                Type: "AWS::SQS::Queue",
+              },
+              my_function_1: {
+                Type: "AWS::Lambda::Function",
+              },
+              my_mapping_1: {
+                Type: "AWS::Lambda::EventSourceMapping",
+                Properties: {
+                  EventSourceArn: { Ref: "my_queue_1" },
+                  FunctionName: { Ref: "my_function_1" },
+                  foo: "bar",
+                  baz: {
+                    kaz: 123,
                   },
                 },
               },
-            };
-            it(`should return an array having length 2`, () => {
-              expect(filter(template)).toHaveLength(2);
-            });
-            it(`should return a correct array`, () => {
-              expect(filter(template)).toEqual(
-                expect.arrayContaining([
-                  {
-                    integration: {
-                      LogicalId: "my_mapping_1",
-                      Properties: {
-                        EventSourceArn: { Ref: "my_queue_1" },
-                        FunctionName: { Ref: "my_function_1" },
-                        baz: { kaz: 123 },
-                        foo: "bar",
-                      },
-                    },
-                    lambda: { LogicalId: "my_function_1", Properties: undefined },
-                    sqs: { LogicalId: "my_queue_1", Properties: undefined },
+              my_queue_2: {
+                Type: "AWS::SQS::Queue",
+              },
+              my_function_2: {
+                Type: "AWS::Lambda::Function",
+              },
+              my_mapping_2: {
+                Type: "AWS::Lambda::EventSourceMapping",
+                Properties: {
+                  EventSourceArn: { Ref: "my_queue_2" },
+                  FunctionName: { Ref: "my_function_1" },
+                  foo: "bar",
+                  baz: {
+                    kaz: 123,
                   },
-                  {
-                    integration: {
-                      LogicalId: "my_mapping_2",
-                      Properties: {
-                        EventSourceArn: { Ref: "my_queue_2" },
-                        FunctionName: { Ref: "my_function_1" },
-                        baz: { kaz: 123 },
-                        foo: "bar",
-                      },
-                    },
-                    lambda: { LogicalId: "my_function_1", Properties: undefined },
-                    sqs: { LogicalId: "my_queue_2", Properties: undefined },
-                  },
-                ]),
-              );
-            });
+                },
+              },
+            },
+          };
+          it(`should return an array having length 2`, () => {
+            expect(filter(template)).toHaveLength(2);
           });
+          it(`should return a correct array`, () => {
+            expect(filter(template)).toEqual(
+              expect.arrayContaining([
+                {
+                  integration: {
+                    LogicalId: "my_mapping_1",
+                    Properties: {
+                      EventSourceArn: { Ref: "my_queue_1" },
+                      FunctionName: { Ref: "my_function_1" },
+                      baz: { kaz: 123 },
+                      foo: "bar",
+                    },
+                  },
+                  lambda: { LogicalId: "my_function_1", Properties: undefined },
+                  sqs: { LogicalId: "my_queue_1", Properties: undefined },
+                },
+                {
+                  integration: {
+                    LogicalId: "my_mapping_2",
+                    Properties: {
+                      EventSourceArn: { Ref: "my_queue_2" },
+                      FunctionName: { Ref: "my_function_1" },
+                      baz: { kaz: 123 },
+                      foo: "bar",
+                    },
+                  },
+                  lambda: { LogicalId: "my_function_1", Properties: undefined },
+                  sqs: { LogicalId: "my_queue_2", Properties: undefined },
+                },
+              ]),
+            );
+          });
+        });
       });
     });
   });
