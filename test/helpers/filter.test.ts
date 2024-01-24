@@ -70,7 +70,7 @@ describe(`when template contains only an the required resources`, () => {
           Type: "AWS::SQS::Queue",
         },
         my_function: {
-          Type: "AWS::Lambda::Functio",
+          Type: "AWS::Lambda::Function",
         },
         my_mapping: {
           Type: "AWS::Lambda::EventSourceMapping",
@@ -88,7 +88,7 @@ describe(`when template contains only an the required resources`, () => {
           Type: "AWS::SQS::Queue",
         },
         my_function: {
-          Type: "AWS::Lambda::Functio",
+          Type: "AWS::Lambda::Function",
         },
         my_mapping: {
           Type: "AWS::Lambda::EventSourceMapping",
@@ -107,7 +107,7 @@ describe(`when template contains only an the required resources`, () => {
           Type: "AWS::SQS::Queue",
         },
         my_function: {
-          Type: "AWS::Lambda::Functio",
+          Type: "AWS::Lambda::Function",
         },
         my_mapping: {
           Type: "AWS::Lambda::EventSourceMapping",
