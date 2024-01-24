@@ -41,7 +41,8 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "cloudform-types": "^7.5.0"
+    "cloudform-types": "^7.5.0",
+    "yaml-cfn": "^0.3.2"
   },
   "main": "lib/index.js",
   "license": "Apache-2.0",
