@@ -5,7 +5,13 @@ export type CFTemplateType =
   | "AWS::Lambda::Function"
   | "AWS::Lambda::EventSourceMapping";
 
-export const extract = (template: Template, type: CFTemplateType) => {
+export const extract = <T>(
+  template: Template,
+  type: CFTemplateType,
+): Partial<{
+  LogicalId: string;
+  Properties: T;
+}>[] => {
   if (template.Resources) {
     const resources = template.Resources;
     if (resources && Object.keys(resources).length > 0) {
@@ -14,7 +20,10 @@ export const extract = (template: Template, type: CFTemplateType) => {
         .map((key) => ({
           LogicalId: key,
           Properties: resources[key].Properties,
-        }));
+        })) as Partial<{
+        LogicalId: string;
+        Properties: T;
+      }>[];
     }
   }
   return [];
