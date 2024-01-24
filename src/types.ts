@@ -1,4 +1,5 @@
 import { Lambda as CFLambda, SQS as CFSQS } from "cloudform-types";
+import { Worker } from "./worker";
 
 export type Integration = Omit<
   Partial<CFLambda.EventSourceMapping>,
@@ -16,3 +17,7 @@ export type Lambda = Omit<Partial<CFLambda.Function>, "Properties"> & {
 };
 
 export type SQS = Pick<CFSQS.Queue, "Properties"> & { id: string };
+
+export interface Advisor {
+  apply: (worker: Worker) => string[];
+}
