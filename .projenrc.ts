@@ -12,7 +12,9 @@ const project = new web.ReactTypeScriptProject({
   ],
   /* Runtime dependencies of this module. */
   // description: undefined,  /* The description is just a string that helps people understand the purpose of the package. */
-  // devDeps: ['cloudform-types'] /* Build dependencies for this module. */,
+  devDeps: [
+    "@babel/plugin-proposal-private-property-in-object",
+  ] /* Build dependencies for this module. */,
   // packageName: undefined,  /* The "name" in package.json. */
   prettier: true,
   prettierOptions: {

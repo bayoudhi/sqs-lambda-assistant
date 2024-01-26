@@ -1,6 +1,10 @@
 {
   "dependencies": [
     {
+      "name": "@babel/plugin-proposal-private-property-in-object",
+      "type": "build"
+    },
+    {
       "name": "@testing-library/jest-dom",
       "type": "build"
     },
