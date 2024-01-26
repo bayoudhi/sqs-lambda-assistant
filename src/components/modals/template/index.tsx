@@ -1,5 +1,6 @@
 import Editor from "@uiw/react-textarea-code-editor";
 import Modal from "react-pure-modal";
+import "react-pure-modal/dist/react-pure-modal.min.css";
 import "./style.css";
 
 export type EditorLanguage = "yaml" | "json";
