@@ -54,6 +54,7 @@
     "@types/express": "4.17.13"
   },
   "license": "Apache-2.0",
+  "homepage": "https://bayoudhi.github.io/sqs-lambda-assistant",
   "version": "0.0.0",
   "eslintConfig": {
     "extends": [

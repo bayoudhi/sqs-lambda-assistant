@@ -3,7 +3,7 @@ const project = new web.ReactTypeScriptProject({
   defaultReleaseBranch: "main",
   name: "foo",
   projenrcTs: true,
-
+  homepage: "https://bayoudhi.github.io/sqs-lambda-assistant",
   deps: [
     "react-pure-modal",
     "@uiw/react-textarea-code-editor",
