@@ -1,12 +1,36 @@
 {
   "dependencies": [
     {
+      "name": "@babel/plugin-proposal-private-property-in-object",
+      "type": "build"
+    },
+    {
+      "name": "@testing-library/jest-dom",
+      "type": "build"
+    },
+    {
+      "name": "@testing-library/react",
+      "type": "build"
+    },
+    {
+      "name": "@testing-library/user-event",
+      "type": "build"
+    },
+    {
       "name": "@types/jest",
       "type": "build"
     },
     {
       "name": "@types/node",
       "version": "^18",
+      "type": "build"
+    },
+    {
+      "name": "@types/react",
+      "type": "build"
+    },
+    {
+      "name": "@types/react-dom",
       "type": "build"
     },
     {
@@ -46,15 +70,6 @@
       "type": "build"
     },
     {
-      "name": "jest",
-      "type": "build"
-    },
-    {
-      "name": "jest-junit",
-      "version": "^15",
-      "type": "build"
-    },
-    {
       "name": "prettier",
       "type": "build"
     },
@@ -63,24 +78,51 @@
       "type": "build"
     },
     {
-      "name": "standard-version",
-      "version": "^9",
-      "type": "build"
-    },
-    {
-      "name": "ts-jest",
-      "type": "build"
-    },
-    {
       "name": "ts-node",
       "type": "build"
     },
     {
       "name": "typescript",
+      "version": "^4.0.3",
       "type": "build"
     },
     {
+      "name": "@types/express-serve-static-core",
+      "version": "4.17.30",
+      "type": "override"
+    },
+    {
+      "name": "@types/express",
+      "version": "4.17.13",
+      "type": "override"
+    },
+    {
+      "name": "@uiw/react-textarea-code-editor",
+      "type": "runtime"
+    },
+    {
       "name": "cloudform-types",
+      "type": "runtime"
+    },
+    {
+      "name": "react",
+      "type": "runtime"
+    },
+    {
+      "name": "react-dom",
+      "type": "runtime"
+    },
+    {
+      "name": "react-pure-modal",
+      "type": "runtime"
+    },
+    {
+      "name": "react-scripts",
+      "version": "^5",
+      "type": "runtime"
+    },
+    {
+      "name": "web-vitals",
       "type": "runtime"
     },
     {
