@@ -1,0 +1,9 @@
+.root {
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+}
+.bg-light-gray {
+  background-color: #F5F5F5;
+  color: black;
+}

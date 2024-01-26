@@ -1,21 +1,22 @@
-import { typescript } from "projen";
-const project = new typescript.TypeScriptProject({
+import { web } from "projen";
+const project = new web.ReactTypeScriptProject({
   defaultReleaseBranch: "main",
-  name: "sqs-lambda-assistant",
+  name: "foo",
   projenrcTs: true,
 
   deps: [
-    "cloudform-types",
+    "react-pure-modal",
+    "@uiw/react-textarea-code-editor",
     "yaml-cfn",
-  ] /* Runtime dependencies of this module. */,
+    "cloudform-types",
+  ],
+  /* Runtime dependencies of this module. */
   // description: undefined,  /* The description is just a string that helps people understand the purpose of the package. */
-  // devDeps: [],             /* Build dependencies for this module. */
+  // devDeps: ['cloudform-types'] /* Build dependencies for this module. */,
   // packageName: undefined,  /* The "name" in package.json. */
-  tsconfig: {
-    compilerOptions: {
-      skipLibCheck: true,
-    },
-  },
   prettier: true,
+  prettierOptions: {
+    settings: { singleQuote: false },
+  },
 });
 project.synth();
