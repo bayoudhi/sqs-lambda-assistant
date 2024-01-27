@@ -6,7 +6,7 @@ interface Props {
   suggestions: string[];
 }
 const WorkersItem = (props: Props) => (
-  <div className="col-xs-12 col-sm-6 offset-3 col-xs-offset-0 col-sm-offset-3 col-md-offset-3 col-lg-offset-3">
+  <div className="col-lg-6 mx-auto">
     <div className="card shadow-sm">
       <Thumbnail worker={props.worker} />
       <div className="card-body">
