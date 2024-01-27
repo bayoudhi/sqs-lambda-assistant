@@ -1,5 +1,5 @@
 import { Worker } from "../core";
-import { EventSourceMappingAdvisor } from "../core/event-source-mapping-advisor";
+import { EventSourceMappingStatusAdvisor } from "../core/event-source-mapping-status-advisor";
 
 describe("App", () => {
   it("should not contain suggestion 'Event Source Mapping should be enabled' when integration has no properties", () => {
@@ -12,7 +12,7 @@ describe("App", () => {
         Properties: {},
       },
     });
-    expect(new EventSourceMappingAdvisor().apply(worker)).toEqual(
+    expect(new EventSourceMappingStatusAdvisor().apply(worker)).toEqual(
       expect.arrayContaining([]),
     );
   });
@@ -29,7 +29,7 @@ describe("App", () => {
         },
       },
     });
-    expect(new EventSourceMappingAdvisor().apply(worker)).toEqual(
+    expect(new EventSourceMappingStatusAdvisor().apply(worker)).toEqual(
       expect.arrayContaining([]),
     );
   });
@@ -47,7 +47,7 @@ describe("App", () => {
         },
       },
     });
-    expect(new EventSourceMappingAdvisor().apply(worker)).toEqual(
+    expect(new EventSourceMappingStatusAdvisor().apply(worker)).toEqual(
       expect.arrayContaining(["Event Source Mapping should be enabled"]),
     );
   });

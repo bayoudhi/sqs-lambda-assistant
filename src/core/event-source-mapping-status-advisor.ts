@@ -1,7 +1,7 @@
 import { Advisor } from "./types";
 import { Worker } from "./worker";
 
-export class EventSourceMappingAdvisor implements Advisor {
+export class EventSourceMappingStatusAdvisor implements Advisor {
   apply(worker: Worker) {
     const suggestions: string[] = [];
     if (worker.integration.Properties.Enabled === false) {
