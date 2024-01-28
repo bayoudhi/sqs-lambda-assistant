@@ -10,7 +10,7 @@ export class RedrivePolicyAdvisor implements Advisor {
           "The deadLetterTargetArn must be present in RedrivePolicy",
         );
       }
-      if (Number(worker.sqs.Properties.RedrivePolicy.maxReceiveCount) < 3) {
+      if (Number(worker.sqs.Properties.RedrivePolicy.maxReceiveCount) < 2) {
         suggestions.push("Consider increasing maxReceiveCount");
       }
     } else {
