@@ -1,7 +1,6 @@
 export const TEMPLATE_JSON = {
   AWSTemplateFormatVersion: "2010-09-09",
-  Description:
-    "The AWS CloudFormation template for this Serverless application",
+  Description: "An example AWS CloudFormation template",
   Resources: {
     ServerlessDeploymentBucket: {
       Type: "AWS::S3::Bucket",
@@ -81,7 +80,7 @@ export const TEMPLATE_JSON = {
     JobsWorkerLogGroup: {
       Type: "AWS::Logs::LogGroup",
       Properties: {
-        LogGroupName: "/aws/lambda/aws-node-sqs-worker-project-dev-jobsWorker",
+        LogGroupName: "/aws/lambda/my_worker_function",
       },
     },
     IamRoleLambdaExecution: {
@@ -139,7 +138,7 @@ export const TEMPLATE_JSON = {
                   Action: ["sqs:SendMessage", "sqs:ChangeMessageVisibility"],
                   Resource: [
                     {
-                      "Fn::GetAtt": ["jobsQueueCEDBAE3E", "Arn"],
+                      "Fn::GetAtt": ["my_jobs_queue", "Arn"],
                     },
                   ],
                 },
@@ -152,7 +151,7 @@ export const TEMPLATE_JSON = {
                   ],
                   Resource: [
                     {
-                      "Fn::GetAtt": ["jobsQueueCEDBAE3E", "Arn"],
+                      "Fn::GetAtt": ["my_jobs_queue", "Arn"],
                     },
                   ],
                 },
@@ -194,7 +193,7 @@ export const TEMPLATE_JSON = {
         Environment: {
           Variables: {
             QUEUE_URL: {
-              Ref: "jobsQueueCEDBAE3E",
+              Ref: "my_jobs_queue",
             },
           },
         },
@@ -216,7 +215,7 @@ export const TEMPLATE_JSON = {
         },
         Handler: "index.consumer",
         Runtime: "nodejs18.x",
-        FunctionName: "aws-node-sqs-worker-project-dev-jobsWorker",
+        FunctionName: "my_worker_function",
         MemorySize: 1024,
         Timeout: 6,
         Role: {
@@ -246,14 +245,14 @@ export const TEMPLATE_JSON = {
         CodeSha256: "AnrSvCAIoAKh7dIyDh8TyJ5Jbrqhyd8KoY1zzxb7XCM=",
       },
     },
-    JobsWorkerEventSourceMappingSQSJobsQueueCEDBAE3E: {
+    JobsWorkerEventSourceMappingSQSmy_jobs_queue: {
       Type: "AWS::Lambda::EventSourceMapping",
       DependsOn: ["IamRoleLambdaExecution"],
       Properties: {
         BatchSize: 5,
         MaximumBatchingWindowInSeconds: 33,
         EventSourceArn: {
-          "Fn::GetAtt": ["jobsQueueCEDBAE3E", "Arn"],
+          "Fn::GetAtt": ["my_jobs_queue", "Arn"],
         },
         FunctionName: {
           "Fn::GetAtt": ["JobsWorkerLambdaFunction", "Arn"],
@@ -354,23 +353,23 @@ export const TEMPLATE_JSON = {
       },
       DependsOn: "HttpApiIntegrationProducer",
     },
-    jobsDlqD18CF374: {
+    my_jobs_dlq: {
       Type: "AWS::SQS::Queue",
       Properties: {
         MessageRetentionPeriod: 1209600,
-        QueueName: "aws-node-sqs-worker-project-dev-jobs-dlq",
+        QueueName: "my_worker_queue-dlq",
       },
       UpdateReplacePolicy: "Delete",
       DeletionPolicy: "Delete",
     },
-    jobsQueueCEDBAE3E: {
+    my_jobs_queue: {
       Type: "AWS::SQS::Queue",
       Properties: {
         DelaySeconds: 60,
-        QueueName: "aws-node-sqs-worker-project-dev-jobs",
+        QueueName: "my_worker_queue",
         RedrivePolicy: {
           deadLetterTargetArn: {
-            "Fn::GetAtt": ["jobsDlqD18CF374", "Arn"],
+            "Fn::GetAtt": ["my_jobs_dlq", "Arn"],
           },
           maxReceiveCount: 1,
         },
@@ -404,7 +403,7 @@ export const TEMPLATE_JSON = {
         Ref: "JobsWorkerLambdaVersionx1AYxWc2gFMOTQcCDa9Z0cA1wcVonrxuYZMubQpE",
       },
       Export: {
-        Name: "sls-aws-node-sqs-worker-project-dev-JobsWorkerLambdaFunctionQualifiedArn",
+        Name: "sls-my_worker_functionLambdaFunctionQualifiedArn",
       },
     },
     HttpApiId: {
@@ -444,19 +443,19 @@ export const TEMPLATE_JSON = {
     jobsQueueArnA5A2FF7E: {
       Description: 'ARN of the "jobs" SQS queue.',
       Value: {
-        "Fn::GetAtt": ["jobsQueueCEDBAE3E", "Arn"],
+        "Fn::GetAtt": ["my_jobs_queue", "Arn"],
       },
     },
     jobsQueueUrl573F5B7A: {
       Description: 'URL of the "jobs" SQS queue.',
       Value: {
-        Ref: "jobsQueueCEDBAE3E",
+        Ref: "my_jobs_queue",
       },
     },
     jobsDlqUrl2C7FA9D4: {
       Description: 'URL of the "jobs" SQS dead letter queue.',
       Value: {
-        Ref: "jobsDlqD18CF374",
+        Ref: "my_jobs_dlq",
       },
     },
   },
