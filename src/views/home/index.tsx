@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { yamlParse } from "yaml-cfn";
 import Hero from "../../components/hero";
 import TemplateModal, {
   EditorLanguage,
@@ -476,30 +477,47 @@ const Home = () => {
     { worker: Worker; suggestions: string[] }[]
   >([]);
   const analyze = (template: string) => {
-    //@ts-ignore
-    const result = filter(JSON.parse(template));
-    setItems(
-      result.map((item) => {
-        const worker = new Worker({
-          id: JSON.stringify(item.integration),
-          //@ts-ignore
-          integration: item.integration,
-          //@ts-ignore
-          lambda: item.lambda,
-          //@ts-ignore
-          sqs: item.sqs,
-        });
-        const suggestions = advisor.analyze(worker);
-        return {
-          suggestions,
-          worker,
-        };
-      }),
-    );
+    try {
+      //@ts-ignore
+      const result = filter(template);
+      setItems(
+        result.map((item) => {
+          const worker = new Worker({
+            id: JSON.stringify(item.integration),
+            //@ts-ignore
+            integration: item.integration,
+            //@ts-ignore
+            lambda: item.lambda,
+            //@ts-ignore
+            sqs: item.sqs,
+          });
+          const suggestions = advisor.analyze(worker);
+          return {
+            suggestions,
+            worker,
+          };
+        }),
+      );
+      setError(null);
+      setIsOpenModal(false);
+    } catch (error) {
+      console.info(error);
+      setError(
+        "Could not perform analysis. Please check your template and try again.",
+      );
+    }
   };
   const handleOnImportTemplate = () => {
-    analyze(content);
-    setIsOpenModal(false);
+    try {
+      if (editorLanguage === "yaml") {
+        analyze(yamlParse(content));
+      } else {
+        analyze(JSON.parse(content));
+      }
+    } catch (error) {
+      console.info(error);
+      setError("Invalid template");
+    }
   };
   const [editorLanguage, setEditorLanguage] = useState<EditorLanguage>("json");
   const handleOnChangeLanguage = (language: EditorLanguage) => {
@@ -518,7 +536,7 @@ const Home = () => {
   const handleOnCloseModal = () => {
     setIsOpenModal(false);
   };
-  // analyze(JSON.stringify(cfTemplate));
+  const [error, setError] = useState<string | null>(null);
   return (
     <>
       <main>
@@ -537,6 +555,7 @@ const Home = () => {
       <TemplateModal
         content={content}
         language={editorLanguage}
+        error={error}
         isOpen={isOpenModal}
         onChangeLanguage={handleOnChangeLanguage}
         onClose={handleOnCloseModal}

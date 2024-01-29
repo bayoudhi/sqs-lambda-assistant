@@ -7,6 +7,7 @@ export type EditorLanguage = "yaml" | "json";
 interface Props {
   content?: string;
   language?: EditorLanguage;
+  error?: string | null;
   isOpen: boolean;
   onClose: () => void;
   onChangeLanguage: (language: EditorLanguage) => void;
@@ -16,6 +17,7 @@ interface Props {
 const TemplateModal = ({
   content = "",
   language = "json",
+  error = null,
   isOpen,
   onClose,
   onChangeContent,
@@ -36,6 +38,7 @@ const TemplateModal = ({
         <button className="btn btn-primary" onClick={onClickConfirm}>
           Confirm
         </button>
+        <div className="text-danger d-inline mx-2">{error}</div>
       </div>
     }
     isOpen={isOpen}
