@@ -4,9 +4,8 @@ import TemplateModal, {
   EditorLanguage,
 } from "../../components/modals/template";
 import WorkersCollection from "../../components/workers/collection";
-import { Worker } from "../../core";
+import { advisor, Worker } from "../../core";
 import { filter } from "../../core/helpers/filter";
-import { VisibilityTimeoutAdvisor } from "../../core/visibility-timeout-advisor";
 
 const cfTemplate = {
   AWSTemplateFormatVersion: "2010-09-09",
@@ -268,7 +267,7 @@ const cfTemplate = {
         FunctionName: {
           "Fn::GetAtt": ["JobsWorkerLambdaFunction", "Arn"],
         },
-        Enabled: true,
+        Enabled: false,
         FunctionResponseTypes: ["ReportBatchItemFailures"],
         ScalingConfig: {
           MaximumConcurrency: 1000,
@@ -382,7 +381,7 @@ const cfTemplate = {
           deadLetterTargetArn: {
             "Fn::GetAtt": ["jobsDlqD18CF374", "Arn"],
           },
-          maxReceiveCount: 3,
+          maxReceiveCount: 1,
         },
         VisibilityTimeout: 1,
       },
@@ -479,7 +478,6 @@ const Home = () => {
   const analyze = (template: string) => {
     //@ts-ignore
     const result = filter(JSON.parse(template));
-    console.log(result);
     setItems(
       result.map((item) => {
         const worker = new Worker({
@@ -491,8 +489,7 @@ const Home = () => {
           //@ts-ignore
           sqs: item.sqs,
         });
-        const suggestions = new VisibilityTimeoutAdvisor().apply(worker);
-        console.log(suggestions);
+        const suggestions = advisor.analyze(worker);
         return {
           suggestions,
           worker,
