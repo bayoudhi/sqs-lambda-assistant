@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/sqs-lambda-assistant/static/css/main.430fdc69.css",
-    "main.js": "/sqs-lambda-assistant/static/js/main.79bfc0c4.js",
+    "main.js": "/sqs-lambda-assistant/static/js/main.b036593c.js",
     "static/js/496.f551b332.chunk.js": "/sqs-lambda-assistant/static/js/496.f551b332.chunk.js",
     "static/media/sqs.png": "/sqs-lambda-assistant/static/media/sqs.c303831c861204b35d0f.png",
     "static/media/lambda.png": "/sqs-lambda-assistant/static/media/lambda.b245c60926ab2f28c3b1.png",
     "index.html": "/sqs-lambda-assistant/index.html",
     "main.430fdc69.css.map": "/sqs-lambda-assistant/static/css/main.430fdc69.css.map",
-    "main.79bfc0c4.js.map": "/sqs-lambda-assistant/static/js/main.79bfc0c4.js.map",
+    "main.b036593c.js.map": "/sqs-lambda-assistant/static/js/main.b036593c.js.map",
     "496.f551b332.chunk.js.map": "/sqs-lambda-assistant/static/js/496.f551b332.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.430fdc69.css",
-    "static/js/main.79bfc0c4.js"
+    "static/js/main.b036593c.js"
   ]
 }
